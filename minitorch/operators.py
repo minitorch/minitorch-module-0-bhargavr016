@@ -3,7 +3,7 @@ Collection of the core mathematical operators used throughout the code base.
 """
 
 import math
-from typing import Callable, Iterable
+from typing import Callable, Iterable, List
 
 # ## Task 0.1
 #
@@ -160,23 +160,12 @@ def negList(ls: Iterable[float]) -> Iterable[float]:
 
 
 def zipWith(fn: Callable[[float, float], float]) -> Callable[[Iterable[float], Iterable[float]], Iterable[float]]:
-    """
-    Higher-order zipwith (or map2).
-
-    See https://en.wikipedia.org/wiki/Map_(higher-order_function)
-
-    Args:
-        fn: combine two values
-
-    Returns:
-        Function that takes two equally sized lists `ls1` and `ls2`, produce a new list by
-         applying fn(x, y) on each pair of elements.
-
-    """
-    # TODO: Implement for Task 0.3.
-    return lambda iterable1, iterable2: [
-        fn(iterable1[i], iterable2[i]) for i in range(len(iterable1))
-    ]
+    def apply_fn(iterable1: Iterable[float], iterable2: Iterable[float]) -> Iterable[float]:
+        list1, list2 = list(iterable1), list(iterable2)
+        if len(list1) != len(list2):
+            raise ValueError("The iterables must be of the same length")
+        return [fn(list1[i], list2[i]) for i in range(len(list1))]
+    return apply_fn
 
 
 def addLists(ls1: Iterable[float], ls2: Iterable[float]) -> Iterable[float]:
@@ -200,7 +189,7 @@ def reduce(fn: Callable[[float, float], float], start: float) -> Callable[[Itera
     """
 
     # TODO: Implement for Task 0.3.
-    def reducer(iterable):
+    def reducer(iterable: Iterable[float]) -> float:
         reduce_out = start
         for item in iterable:
             reduce_out = fn(reduce_out, item)
