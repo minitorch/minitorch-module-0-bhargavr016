@@ -59,11 +59,11 @@ class Module:
         params: List[Tuple[str, Parameter]] = []
         for key, value in self._parameters.items():
             params.append((key, value))
-        
+
         if self.modules():
             for name, module in self._modules.items():
                 params.extend([(f"{name}.{param_name}", param_value) for param_name, param_value in module.named_parameters()])
-        
+
         return params
 
     def parameters(self) -> Sequence[Parameter]:
