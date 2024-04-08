@@ -3,7 +3,7 @@ Collection of the core mathematical operators used throughout the code base.
 """
 
 import math
-from typing import Callable, Iterable, List
+from typing import Callable, Iterable
 
 # ## Task 0.1
 #

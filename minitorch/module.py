@@ -58,11 +58,10 @@ class Module:
         # TODO: Implement for Task 0.4.
         params = [[key, value] for key, value in self._parameters.items()]
         if self.modules():
-            for name, module in self.__dict__["_modules"].items():
+            for name, module in self._modules.items():
                 params_descendant = module.named_parameters()
-                for parameter in params_descendant:
-                    parameter[0] = f"{name}.{parameter[0]}"
-                params += params_descendant
+                for param_name, param_value in params_descendant:
+                    params.append((f"{name}.{param_name}", param_value))
         return params
 
     def parameters(self) -> Sequence[Parameter]:
