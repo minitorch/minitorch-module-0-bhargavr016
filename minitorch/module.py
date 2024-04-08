@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Dict, Optional, Sequence, Tuple
+from typing import Any, Dict, Optional, Sequence, Tuple, List
 
 
 class Module:
@@ -56,12 +56,14 @@ class Module:
             The name and `Parameter` of each ancestor parameter.
         """
         # TODO: Implement for Task 0.4.
-        params = [[key, value] for key, value in self._parameters.items()]
+        params: List[Tuple[str, Parameter]] = []
+        for key, value in self._parameters.items():
+            params.append((key, value))
+        
         if self.modules():
             for name, module in self._modules.items():
-                params_descendant = module.named_parameters()
-                for param_name, param_value in params_descendant:
-                    params.append((f"{name}.{param_name}", param_value))  # Ensure this is a tuple
+                params.extend([(f"{name}.{param_name}", param_value) for param_name, param_value in module.named_parameters()])
+        
         return params
 
     def parameters(self) -> Sequence[Parameter]:
