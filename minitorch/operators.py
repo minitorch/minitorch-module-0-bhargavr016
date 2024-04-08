@@ -3,7 +3,7 @@ Collection of the core mathematical operators used throughout the code base.
 """
 
 import math
-from typing import Callable,Iterable
+from typing import Callable, Iterable
 
 # ## Task 0.1
 #
@@ -195,7 +195,7 @@ def reduce(fn: Callable[[float, float], float], start: float) -> Callable[[Itera
 
     Returns:
         Function that takes a list `ls` of elements
-         $x_1 \ldots x_n$ and computes the reduction :math:`fn(x_3, fn(x_2,
+         $x_1 ldots x_n$ and computes the reduction :math:`fn(x_3, fn(x_2,
          fn(x_1, x_0)))`
     """
 
