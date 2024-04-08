@@ -2,7 +2,11 @@ import networkx as nx
 
 import minitorch
 
-
+if hasattr(minitorch, "Scalar"):
+    Scalar = minitorch.Scalar
+else:
+    Scalar = None
+    
 def build_expression(code):
     out = eval(
         code,
