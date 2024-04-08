@@ -3,7 +3,7 @@ Collection of the core mathematical operators used throughout the code base.
 """
 
 import math
-from typing import Iterable
+from typing import Callable,Iterable
 
 # ## Task 0.1
 #
@@ -136,7 +136,7 @@ def relu_back(x: float, d: float) -> float:
 # Small practice library of elementary higher-order functions.
 
 
-def map(fn):
+def map(fn: Callable[[float], float]) -> Callable[[Iterable[float]], Iterable[float]]:
     """
     Higher-order map.
 
@@ -153,13 +153,13 @@ def map(fn):
     return lambda iterable_obj: [fn(item) for item in iterable_obj]
 
 
-def negList(ls):
+def negList(ls: Iterable[float]) -> Iterable[float]:
     "Use `map` and `neg` to negate each element in `ls`"
     # TODO: Implement for Task 0.3.
     return map(neg)(ls)
 
 
-def zipWith(fn):
+def zipWith(fn: Callable[[float, float], float]) -> Callable[[Iterable[float], Iterable[float]], Iterable[float]]:
     """
     Higher-order zipwith (or map2).
 
@@ -185,8 +185,8 @@ def addLists(ls1: Iterable[float], ls2: Iterable[float]) -> Iterable[float]:
     return zipWith(add)(ls1, ls2)
 
 
-def reduce(fn, start):
-    r"""
+def reduce(fn: Callable[[float, float], float], start: float) -> Callable[[Iterable[float]], float]:
+    """
     Higher-order reduce.
 
     Args:
