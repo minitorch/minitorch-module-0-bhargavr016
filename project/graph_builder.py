@@ -1,12 +1,12 @@
 import networkx as nx
+
 import minitorch
 
 if hasattr(minitorch, "Scalar"):
     Scalar = minitorch.Scalar
 else:
     Scalar = None
-
-
+    
 def build_expression(code):
     out = eval(
         code,
@@ -21,6 +21,7 @@ def build_expression(code):
 
 
 def build_tensor_expression(code):
+
     variables = {
         "x": minitorch.tensor([[1.0, 2.0, 3.0]], requires_grad=True),
         "y": minitorch.tensor([[1.0, 2.0, 3.0]], requires_grad=True),

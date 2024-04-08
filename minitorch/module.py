@@ -31,6 +31,7 @@ class Module:
 
     def train(self) -> None:
         "Set the mode of this module and all descendent modules to `train`."
+        # TODO: Implement for Task 0.4.
         self.training = True
 
         if self.modules():
@@ -39,6 +40,7 @@ class Module:
 
     def eval(self) -> None:
         "Set the mode of this module and all descendent modules to `eval`."
+        # TODO: Implement for Task 0.4.
         self.training = False
 
         if self.modules():
@@ -49,20 +51,24 @@ class Module:
         """
         Collect all the parameters of this module and its descendents.
 
+
         Returns:
             The name and `Parameter` of each ancestor parameter.
         """
-        params: List[Tuple[str, Parameter]] = [(key, value) for key, value in self._parameters.items()]
+        # TODO: Implement for Task 0.4.
+        params = [[key, value] for key, value in self._parameters.items()]
         if self.modules():
             for name, module in self.__dict__["_modules"].items():
                 params_descendant = module.named_parameters()
-                for param_name, param_value in params_descendant:
-                    params.append((f"{name}.{param_name}", param_value))
+                for parameter in params_descendant:
+                    parameter[0] = f"{name}.{parameter[0]}"
+                params += params_descendant
         return params
 
     def parameters(self) -> Sequence[Parameter]:
         "Enumerate over all the parameters of this module and its descendents."
-        return [parameter for _, parameter in self.named_parameters()]
+        # TODO: Implement for Task 0.4.
+        return [parameter[1] for parameter in self.named_parameters()]
 
     def add_parameter(self, k: str, v: Any) -> Parameter:
         """
@@ -79,7 +85,7 @@ class Module:
         self.__dict__["_parameters"][k] = val
         return val
 
-    def __setattr__(self, key: str, val: Any) -> None:
+    def __setattr__(self, key: str, val: Parameter) -> None:
         if isinstance(val, Parameter):
             self.__dict__["_parameters"][key] = val
         elif isinstance(val, Module):
@@ -90,6 +96,7 @@ class Module:
     def __getattr__(self, key: str) -> Any:
         if key in self.__dict__["_parameters"]:
             return self.__dict__["_parameters"][key]
+
         if key in self.__dict__["_modules"]:
             return self.__dict__["_modules"][key]
         return None
@@ -154,4 +161,3 @@ class Parameter:
 
     def __str__(self) -> str:
         return str(self.value)
-
