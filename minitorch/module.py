@@ -61,7 +61,7 @@ class Module:
             for name, module in self._modules.items():
                 params_descendant = module.named_parameters()
                 for param_name, param_value in params_descendant:
-                    params.append((f"{name}.{param_name}", param_value))
+                    params.append((f"{name}.{param_name}", param_value))  # Ensure this is a tuple
         return params
 
     def parameters(self) -> Sequence[Parameter]:
