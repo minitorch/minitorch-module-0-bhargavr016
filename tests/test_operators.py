@@ -231,4 +231,3 @@ def test_backs(a: float, b: float) -> None:
     relu_back(a, b)
     inv_back(a + 2.4, b)
     log_back(abs(a) + 4, b)
-    
